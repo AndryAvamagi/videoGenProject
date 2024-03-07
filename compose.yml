@@ -1,0 +1,29 @@
+services:
+  nextapp:
+    container_name: nextapp
+    image: nextapp
+    build:
+      context: ./client
+      dockerfile: next.dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - flaskapp
+      - nginxapp
+
+
+  flaskapp:
+    container_name: flaskapp
+    image: flaskapp
+    build:
+      context: ./server
+      dockerfile: flask.dockerfile
+    ports:
+      - 5000:5000
+
+  nginxapp:
+    container_name: nginxapp
+    image: nginxapp:1.0.0
+    build:
+      dockerfile: nginx.dockerfile
+
